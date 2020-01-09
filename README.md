@@ -1,5 +1,5 @@
 # RecyclerAdapterTemplate
-Simple RecyclerView template for creating RecyclerAdapter using kotlin
+Simple RecyclerView template for creating RecyclerAdapter
 
 To create new template.
 
