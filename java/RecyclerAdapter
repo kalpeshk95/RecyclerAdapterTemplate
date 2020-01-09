@@ -1,0 +1,75 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+#if (!${Binding_Class} || ${Binding_Class} == "")import android.view.View;#end
+
+
+public class ${NAME} extends RecyclerView.Adapter<${NAME}.MyViewHolder> {
+
+    private final LayoutInflater mInflater;
+    private List<${Model_Class}> list;
+    #if (${Listener} && ${Listener} != "")private ${Listener} listener;#end
+
+    public ${NAME}(Context context, List<${Model_Class}> list#if (${Listener} && ${Listener} != ""), ${Listener} listener#end) {
+        mInflater = LayoutInflater.from(context);
+        this.list = list;
+	#if (${Listener} && ${Listener} != "")this.listener = listener;#end
+    }
+
+    @NotNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+	#if (${Binding_Class} && ${Binding_Class} != "")${Binding_Class} itemView = DataBindingUtil.inflate(
+			mInflater, 
+			R.layout.${Item_Layout_ID}, 
+			parent, 
+			false);
+		return new MyViewHolder(itemView);
+
+        #else View itemView = mInflater.inflate(R.layout.${Item_Layout_ID}, parent, false);
+        return new MyViewHolder(itemView);
+	#end
+    }
+
+    @Override
+    public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
+        if (list != null) {
+            	${Model_Class} item = list.get(position);
+		#if (${Binding_Class} && ${Binding_Class} != "")holder.binding.setModel(item);
+        	holder.binding.executePendingBindings();
+		#end
+
+//		holder.#if(${Binding_Class} && ${Binding_Class} != "")binding.getRoot()#else view#end.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    
+//               }
+            });
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        if (list != null)
+            return list.size();
+        else return 0;
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
+
+	private #if(${Binding_Class} && ${Binding_Class} != "") ${Binding_Class} binding #else View view #end;
+
+        private MyViewHolder(#if (${Binding_Class} && ${Binding_Class} != "")${Binding_Class} binding #else View view#end) {
+            super(#if (${Binding_Class} && ${Binding_Class} != "")binding.getRoot() #else view#end);
+	    #if (${Binding_Class} && ${Binding_Class} != "")this.binding = binding #else this.view = view#end;
+        }
+    }
+
+    public User getItem(int id) {
+        return list.get(id);
+    }
+}
