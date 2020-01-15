@@ -5,7 +5,6 @@
     import android.view.ViewGroup
     import androidx.recyclerview.widget.RecyclerView
     #if (${Binding_Class} && ${Binding_Class} != "")
-    import android.view.View
     import androidx.databinding.DataBindingUtil
     #end
 
@@ -17,17 +16,17 @@
     ) : RecyclerView.Adapter<${NAME}.ViewHolder>() {
 
 	inner class ViewHolder(#if (${Binding_Class} && ${Binding_Class} != "")var binding: ${Binding_Class} #else var view: View#end) : 
-		RecyclerView.ViewHolder(#if (${Binding_Class} && ${Binding_Class} != "")binding.root #else view#end) #if (${Listener} && ${Listener} != ""), View.OnClickListener {
-		
+		RecyclerView.ViewHolder(#if (${Binding_Class} && ${Binding_Class} != "")binding.root #else view#end) #if (${Listener} && ${Listener} != "") {
+
             	init {
-			#if (${Binding_Class} && ${Binding_Class} != "")binding.root.setOnClickListener(this)
-			#else view.setOnClickListener(this)
+			#if (${Binding_Class} && ${Binding_Class} != "")binding.root.setOnClickListener {
+
+           	 	}
+			#else view.setOnClickListener {
+
+            		}
 			#end
 		}
-
-		override fun onClick(v: View) {
-
-        	}
 	}#end
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
