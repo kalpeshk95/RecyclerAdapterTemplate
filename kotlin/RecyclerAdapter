@@ -2,8 +2,12 @@
 
     import android.content.Context
     import android.view.LayoutInflater
-    #if (!${Binding_Class} || ${Binding_Class} == "")import android.view.View#end
     import android.view.ViewGroup
+    import androidx.recyclerview.widget.RecyclerView
+    #if (${Binding_Class} && ${Binding_Class} != "")
+    import android.view.View
+    import androidx.databinding.DataBindingUtil
+    #end
 
     #parse("File Header.java")
     open class ${NAME}(
@@ -12,18 +16,18 @@
     private val list: List<${Model_Class}>
     ) : RecyclerView.Adapter<${NAME}.ViewHolder>() {
 
-	inner class ViewHolder(#if (${Binding_Class} && ${Binding_Class} != "")var binding: ${Binding_Class} #else view: View#end) : 
-		RecyclerView.ViewHolder(#if (${Binding_Class} && ${Binding_Class} != "")binding.root #else view#end) #if (${Listener} && ${Listener} != "") {
+	inner class ViewHolder(#if (${Binding_Class} && ${Binding_Class} != "")var binding: ${Binding_Class} #else var view: View#end) : 
+		RecyclerView.ViewHolder(#if (${Binding_Class} && ${Binding_Class} != "")binding.root #else view#end) #if (${Listener} && ${Listener} != ""), View.OnClickListener {
 		
             	init {
-			#if (${Binding_Class} && ${Binding_Class} != "")binding.root.setOnClickListener {
-
-           	 	}
-			#else view.setOnClickListener {
-
-            		}
+			#if (${Binding_Class} && ${Binding_Class} != "")binding.root.setOnClickListener(this)
+			#else view.setOnClickListener(this)
 			#end
 		}
+
+		override fun onClick(v: View) {
+
+        	}
 	}#end
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
