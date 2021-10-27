@@ -13,7 +13,7 @@ To create new template.
  
 - Copy paste the above code and click on apply then OK.
 - Now you are ready to use template.
-- Again click on File tab -> New you will find the template with name specified.
+- Again click on File tab -> Now you will find the template with name specified.
 - For more how to create a template visit https://riggaroo.co.za/custom-file-templates-android-studio/
 
  <img src="Images/RecyclerAdapter.bmp" width="49%" />
